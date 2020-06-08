@@ -10,7 +10,7 @@ before_script:
 
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
-- docker build -t vmnet8/nginx-tags:test Dockerfile
+- docker build -t vmnet8/nginx-tags:test  -f Dockerfile
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 before_deploy:
 #deploy:
