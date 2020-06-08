@@ -9,7 +9,7 @@ services:
 before_script: 
 script:
 - timetag=$(date +%Y%m%d%H%M)
-- "./docker-build.sh vmnet8/nginx-tags:$timetag"
+- ./docker-build.sh vmnet8/nginx-tags:$timetag
 - echo "$DOCKERPASSWD" | docker login -u "$DOCKERUSERNAME" --password-stdin
 - docker push vmnet8/nginx-tags:$timetag
 before_deploy:
