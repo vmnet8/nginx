@@ -10,8 +10,6 @@ script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - source sha_function.sh
 - alpine=$(alpine_sha "vmnet8/alpine:latest")
-#- alpine=$(alpine_sha "treehouses/alpine:latest")
-#- alpine=$(docker image history "vmnet8/alpine:latest" |awk '{print$1}' |tail -2 |head -1)
 - echo $alpine
 - nginx=$(nginx_sha "vmnet8/nginx-tags:alpine-x86")
 - echo $nginx
