@@ -3,7 +3,8 @@
 alpine_sha (){
     local sha
     alpine_repo=$1
-    docker pull $1 -q &>/dev/null
+    docker pull -q $1 &>/dev/null
+   # docker pull -q  ${docker_image} &>/dev/null
     sha=$(docker image history $1 |awk '{print$1}' |tail -2 |head -1)
     #alpine_sha=$(docker image history $1 |awk '{print$1}' |tail -2 |head -1)
     #echo $alpine_sha
