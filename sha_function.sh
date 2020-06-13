@@ -15,7 +15,7 @@ alpine_sha (){
 nginx_sha (){
     local sha
     nginx_repo=$1
-    docker pull -q $1 &>/dev/null
+    docker pull $1 &>/dev/null
     sha=$(docker image history $1 |awk '{print$1}' |tail -2 |head -1)
     echo $sha
 }
