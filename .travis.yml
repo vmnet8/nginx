@@ -10,16 +10,16 @@ before_script:
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - source sha_function.sh
-- alpine_sha=$(alpine_sha "vmnet8/alpine:latest")
-- echo $alpine_sha
-- nginx_sha=$(nginx_sha "vmnet8/nginx-tags:alpine-x86")
-- echo $nginx_sha
-- flag=$(compare $alpine_sha $nginx_sha)
+- alpine=$(alpine_sha "vmnet8/alpine:latest")
+- echo $alpine
+- nginx=$(nginx_sha "vmnet8/nginx-tags:alpine-x86")
+- echo $nginx
+- flag=$(compare $alpine $nginx)
 - echo $flag
 - timetag=$(date +%Y%m%d%H%M)
 - echo $timetag
 - echo "$DOCKERPASS" | docker login -u vmnet8 --password-stdin
-before_deploy:
+#before_deploy:
 - "./docker-build.sh vmnet8/nginx-tags:$timetag"
 deploy:
 - provider: script
