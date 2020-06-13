@@ -26,6 +26,6 @@ compare (){
 }
 
 
-alpine_sha "vmnet8/alpine:latest"
+#alpine_sha "vmnet8/alpine:latest"
 #nginx_sha vmnet8/nginx-tags:alpine-x86
 #compare alpine_sha "treehouses/alpine:3.11" nginx_sha "treehouses/nginx:latest"
