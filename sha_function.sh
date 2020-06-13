@@ -1,24 +1,18 @@
 #!/bin/bash
 #set -x
-alpine_sha (){
-    local sha
-    alpine_repo=$1
-    #docker pull -q $1 &>/dev/null
+is_base (){
+    local base_sha    # alpine
+    local image_sha   # nginx
+    base_repo=$1
+    image_repo=$2
     docker pull $1 &>/dev/null
-    sha=$(docker image history $1 |awk '{print$1}' |tail -2 |head -1)
-    echo $sha
-}
+    base_sha=$(docker image history $1 |awk '{print$1}' |tail -2 |head -1)
+    echo $base_sha
+    docker pull $2 &>/dev/null
+    image_sha=$(docker image history $2 |awk '{print$1}' |tail -2 |head -1)
+    echo $image_sha
 
-nginx_sha (){
-    local sha
-    nginx_repo=$1
-    docker pull $1 &>/dev/null
-    sha=$(docker image history $1 |awk '{print$1}' |tail -2 |head -1)
-    echo $sha
-}
-
-compare (){
-    if [ $1 != $2 ]
+    if [ $base_sha != $image_sha ]
     then
         echo true
     else
@@ -26,7 +20,4 @@ compare (){
     fi
 }
 
-
-#alpine_sha "vmnet8/alpine:latest"
-#nginx_sha vmnet8/nginx-tags:alpine-x86
-#compare alpine_sha "treehouses/alpine:3.11" nginx_sha "treehouses/nginx:latest"
+#is_base alpine_sha "treehouses/alpine:3.11" nginx_sha "treehouses/nginx:latest"
