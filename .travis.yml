@@ -12,7 +12,7 @@ script:
 - source sha_function.sh
 - alpine_sha=$(alpine_sha "vmnet8/alpine:latest")
 - echo $alpine_sha
-- nginx_sha=$(nginx_sha "vmnet8/nginx:latest")
+- nginx_sha=$(nginx_sha "vmnet8/nginx-tags:alpine-x86")
 - echo $nginx_sha
 - flag=$(compare $alpine_sha $nginx_sha)
 - echo $flag
