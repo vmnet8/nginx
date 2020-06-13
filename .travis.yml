@@ -6,17 +6,28 @@ addons:
     - docker-ce
 services:
 - docker
-before_script: 
+before_script:
 script:
+- export DOCKER_CLI_EXPERIMENTAL=enabled
+- source sha_function.sh
+- alpine_sha=$(alpine_sha "vmnet8/alpine:latest")
+- echo $alpine_sha
+- nginx_sha=$(nginx_sha "vmnet8/nginx:latest")
+- echo $nginx_sha
+- flag=$(compare_sha )
+- echo $flag
 - timetag=$(date +%Y%m%d%H%M)
 - echo $timetag
-- "./docker-build.sh vmnet8/nginx-tags:$timetag"
 - echo "$DOCKERPASS" | docker login -u vmnet8 --password-stdin
-- docker push vmnet8/nginx-tags:$timetag
 before_deploy:
+- "./docker-build.sh vmnet8/nginx-tags:$timetag"
+deploy:
+- provider: script
+  script: docker push vmnet8/nginx-tags:$timetag
   skip_cleanup: true
   on:
     all_branches: true
+    condition: $flag = true
 env:
   global:
     secure: dkfp69KWQ+HTWau1m3+0ArxpK+luZ/r29JxaO8vPCgI1S6Axd8R77HfDhCRh9skb1X3GmRJK0fENKRI/pqQ9Kd97qvFxki7H2ECNWbOSqXc8EaNEObzOsEvtlTbqrTCbI+U5j3VG3fi2t2p31iFghpykOqQHzDyS3PsmgpvYTbZKHxf+fbkbKpUw7jjVr9N99Uls60VRdmUiUU9KPmw9ppcJEsIw1bCP4vtBaBjkyFFcZvR4yXp/xs+3wDdRYGuGJ3LR6BHh5K/tLwBAKvPU5MHz/Sppg4y2kuc/70CwWd/VxdLQvPMhKmA5040pVWV6jcX1JkDzUvN4hWPNJm0n1w8KBJoYAvHjZ53wzHZK8dUlYUsc9IPrQywWYdaDH3Kop7oxlU1UhZXhG3PSQ+kdI/XUiZmCa5BTDKow6LuaEJ85QUKSECSuapXlNYswMX0OV1iefsm24wbkHZEmxPtFIsq/vgylNMygqyVCvRIW8vbiXCvZYENeWYFQZJfWRiMx1DlLw6+NeJYJdXYjFRHgoSPG79GrGdjxxAuhQe7Bu+luuZeayxle3ddwszs1bkEvPsQZBcsqsEk8bZXi3hV4vfktG1aN+yAo7GX24XOeQM/61HRR3JRv/jloAx98WSwE5vpV2BO/yG9BPVwZg0ei+TdzjrYdV8VYHMFC1Pbf+7g=
