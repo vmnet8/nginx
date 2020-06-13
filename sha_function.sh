@@ -3,8 +3,10 @@
 alpine_sha (){
     local alpine_repo=$1
 
-    alpine_sha=$(docker image history $1 |awk '{print$1}' |tail -2 |head -1)
-    echo $alpine_sha
+    sha=$(docker image history $1 |awk '{print$1}' |tail -2 |head -1)
+    #alpine_sha=$(docker image history $1 |awk '{print$1}' |tail -2 |head -1)
+    #echo $alpine_sha
+    echo $sha
 }
 
 nginx_sha (){
@@ -24,6 +26,6 @@ compare (){
 }
 
 
-#alpine_sha "vmnet8/alpine:latest"
+alpine_sha "vmnet8/alpine:latest"
 #nginx_sha vmnet8/nginx-tags:alpine-x86
 #compare alpine_sha "treehouses/alpine:3.11" nginx_sha "treehouses/nginx:latest"
