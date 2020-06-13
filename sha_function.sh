@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 alpine_sha (){
     local alpine_repo=$1
 

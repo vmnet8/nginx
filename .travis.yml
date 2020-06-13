@@ -14,7 +14,7 @@ script:
 - echo $alpine_sha
 - nginx_sha=$(nginx_sha "vmnet8/nginx:latest")
 - echo $nginx_sha
-- flag=$(compare_sha )
+- flag=$(compare_sha $alpine_sha $nginx_sha)
 - echo $flag
 - timetag=$(date +%Y%m%d%H%M)
 - echo $timetag
