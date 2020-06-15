@@ -20,4 +20,5 @@ is_base (){
     fi
 }
 
-#is_base alpine_sha "treehouses/alpine:3.11" nginx_sha "treehouses/nginx:latest"
+#is_base "vmnet8/alpine:latest"  "vmnet8/nginx-tags:alpine-x86"
+#is_base "treehouses/alpine:3.11"  "treehouses/nginx:latest"
