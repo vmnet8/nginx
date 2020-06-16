@@ -21,7 +21,7 @@ is_base (){
     for i in $base_sha; do
         for j in $image_sha; do
             if [ "$i" = "$j" ]; then
-                echo "no change, same base image: $i"
+                #echo "no change, same base image: $i"
                 found="false"
                 break
             fi
