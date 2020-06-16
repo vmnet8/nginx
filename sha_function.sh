@@ -21,12 +21,14 @@ is_base (){
     image_sha=$(get_sha $2)
     echo $image_sha
 
-    found="true"
+    #found="true"
+    found=0
     for i in $base_sha; do
         for j in $image_sha; do
             if [ "$i" = "$j" ]; then
                 echo "no change, same base image: $i"
-                found="false"
+                #found="false"
+                found=1
                 break
             fi
         done
@@ -59,6 +61,8 @@ is_base (){
 }
 
 #is_base "vmnet8/alpine:latest"  "vmnet8/nginx-tags:alpine-x86"
+flag=$(is_base "vmnet8/alpine:latest"  "vmnet8/nginx-tags:alpine-x86")
+echo $flag
 #is_base "treehouses/nginx:1.18" "treehouses/turtleblocksjs-tags:x86"
 #is_base "treehouses/alpine:3.11"  "treehouses/nginx:latest"
 #get_sha "treehouses/nginx:latest"
