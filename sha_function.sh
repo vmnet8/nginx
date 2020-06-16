@@ -8,8 +8,6 @@ get_sha(){
     echo $sha
     #read -a base_sha <<< $base_sha
     #sha_arr=($sha)
-    #echo "sha is $sha_arr"
-
 }
 is_base (){
     local base_sha    # alpine
@@ -17,18 +15,14 @@ is_base (){
     base_repo=$1
     image_repo=$2
     base_sha=$(get_sha $1)
- #   echo $base_sha
     image_sha=$(get_sha $2)
-  #  echo $image_sha
 
     found="true"
-  #  found=0
     for i in $base_sha; do
         for j in $image_sha; do
             if [ "$i" = "$j" ]; then
                 echo "no change, same base image: $i"
                 found="false"
-                #found=1
                 break
             fi
         done

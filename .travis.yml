@@ -9,7 +9,8 @@ services:
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - source sha_function.sh
-- flag=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx-tags:alpine-x86")
+#- flag=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx-tags:alpine-x86")
+- flag=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx-tags:202006161935")
 - echo $flag
 - timetag=$(date +%Y%m%d%H%M)
 - echo $timetag
