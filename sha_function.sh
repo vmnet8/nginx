@@ -29,29 +29,12 @@ is_base (){
     done
     echo "$found"
 
-    #for i in ${image_sha}
-    #do
-    #    echo $i
-    #done
-    #diff=()
-    #for i in "${base_sha[0]}"; do
-    #for i in "${base_sha[@]}"; do
-    # for j in "${image_sha[@]}"; do
-    #     echo $j
-    #     if [ $j == ${base_sha[0]} ]; then
-    #         diff=$j
-    #         echo $diff
-    #     fi
-    # done
-    #done
-    #    [[ -n $skip ]] || diff+=("$i")
-    #done
-    #if [ ${base_sha[*]} != ${image_sha[*]} ]
-    #then
-     #   echo true
-    #else
-     #   echo false
-    #fi
+}
+image_version(){
+    local version
+    repo=$1
+    version=$(docker run -it $1 /bin/sh -c "nginx -v")
+    echo $version
 }
 
 #is_base "vmnet8/alpine:latest"  "vmnet8/nginx-tags:alpine-x86"
@@ -61,3 +44,4 @@ is_base (){
 #is_base "treehouses/alpine:3.11"  "treehouses/nginx:latest"
 #get_sha "treehouses/nginx:latest"
 #is_base
+image_version $1
