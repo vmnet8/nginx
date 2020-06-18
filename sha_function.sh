@@ -44,4 +44,4 @@ image_version(){
 #is_base "treehouses/alpine:3.11"  "treehouses/nginx:latest"
 #get_sha "treehouses/nginx:latest"
 #is_base
-image_version $1
+#image_version $1
