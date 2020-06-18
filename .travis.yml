@@ -15,7 +15,8 @@ script:
 - version2=$(image_version vmnet8/nginx-tags:alpine-x86)
 - echo "my version is $version2"
 #- flag=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx-tags:alpine-x86")
-- flag=$(compare "vmnet8/alpine:latest" "vmnet8/nginx-tags:alpine-x86" "nginx:latest" "vmnet8/nginx-tags:alpine-x86")
+#- flag=$(compare "vmnet8/alpine:latest" "vmnet8/nginx-tags:alpine-x86" "nginx:latest" "vmnet8/nginx-tags:alpine-x86")
+- flag=$(compare "vmnet8/alpine:latest" "vmnet8/nginx-tags:202006180339" "nginx:latest" "vmnet8/nginx-tags:202006180339")
 - echo $flag
 - timetag=$(date +%Y%m%d%H%M)
 - echo $timetag
