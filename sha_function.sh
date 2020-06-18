@@ -33,7 +33,7 @@ is_base (){
 image_version(){
     local version
     repo=$1
-    version=$(docker run -it $1 /bin/sh -c "nginx -v")
+    version=$(docker run -it $1 /bin/sh -c "nginx -v" |awk '{print$3}')
     echo $version
 }
 
@@ -41,7 +41,7 @@ compare (){
     result=$(is_base $1 $2)
     version1=$(image_version $3)
     version2=$(image_version $4)
-    if [ $result == "true" ] || [ $version1 != $version2 ];
+    if [ $result == "true" ] || [ "$version1" != "$version2" ];
     then
         echo "true"
     else
