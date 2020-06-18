@@ -15,10 +15,10 @@ script:
 - timetag=$(date +%Y%m%d%H%M)
 - echo $timetag
 - echo "$DOCKERPASS" | docker login -u vmnet8 --password-stdin
-- version=$(image_version vmnet8/nginx-tags:$timetag)
-- echo $version
 before_deploy:
 - "./docker-build.sh vmnet8/nginx-tags:$timetag"
+- version=$(image_version vmnet8/nginx-tags:$timetag)
+- echo $version
 deploy:
 - provider: script
   script: docker push vmnet8/nginx-tags:$timetag
