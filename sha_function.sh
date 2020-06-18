@@ -37,6 +37,18 @@ image_version(){
     echo $version
 }
 
+compare (){
+    result=$(is_base $1 $2)
+    version1=$(image_version $3)
+    version2=$(image_version $4)
+    if [ $result == "true" ] || [ $version1 != $version2 ];
+    then
+        echo "true"
+    else
+        echo "false"
+    fi
+}
+
 #is_base "vmnet8/alpine:latest"  "vmnet8/nginx-tags:alpine-x86"
 #flag=$(is_base "vmnet8/alpine:latest"  "vmnet8/nginx-tags:alpine-x86")
 #echo $flag
@@ -45,3 +57,4 @@ image_version(){
 #get_sha "treehouses/nginx:latest"
 #is_base
 #image_version $1
+#compare $@
