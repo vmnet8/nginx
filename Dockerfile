@@ -1,6 +1,6 @@
 FROM vmnet8/alpine:latest
 
-LABEL org.opencontainers.image.maintainer="vmnet8 <vmnet8@gmail.com>" \
+LABEL org.opencontainers.image.maintainer="vmnet8 <vmnet8@ole.org>" \
       org.opencontainers.image.title="NGINX" \
       org.opencontainers.image.description="NGINX on raspberry pi" \
       org.opencontainers.image.licenses="AGPL v3.0" \
@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.maintainer="vmnet8 <vmnet8@gmail.com>" \
       org.opencontainers.image.source="https://github.com/vmnet8/nginx"
 
 
-ENV NGINX_VERSION 1.16
+#ENV NGINX_VERSION 1.16
 
 RUN apk --no-cache add nginx \
     && mkdir -p /run/nginx \

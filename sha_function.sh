@@ -28,8 +28,8 @@ is_base (){
         done
     done
     echo "$found"
-
 }
+
 image_version(){
     local version
     repo=$1
