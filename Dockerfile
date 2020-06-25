@@ -1,5 +1,5 @@
-#FROM vmnet8/alpine:latest
-FROM nginx:latest
+FROM vmnet8/alpine:latest
+#FROM nginx:latest
 
 LABEL org.opencontainers.image.maintainer="vmnet8 <vmnet8@ole.org>" \
       org.opencontainers.image.title="NGINX" \
