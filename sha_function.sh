@@ -32,7 +32,7 @@ is_base (){
 
 image_version(){
     local version
-    repo=$1
+    repo=$1    # nginx repo
     version=$(docker run -it $1 /bin/sh -c "nginx -v" |awk '{print$3}')
     echo $version
 }
@@ -54,7 +54,8 @@ compare (){
 #echo $flag
 #is_base "treehouses/nginx:1.18" "treehouses/turtleblocksjs-tags:x86"
 #is_base "treehouses/alpine:3.11"  "treehouses/nginx:latest"
-#get_sha "treehouses/nginx:latest"
+#get_sha "treehouses/alpine:latest"
+#get_sha $1
 #is_base
 #image_version $1
 #compare $@
