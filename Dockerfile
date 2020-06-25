@@ -9,7 +9,6 @@ LABEL org.opencontainers.image.maintainer="vmnet8 <vmnet8@ole.org>" \
       org.opencontainers.image.url="https://hub.docker.com/r/vmnet8/nginx/" \
       org.opencontainers.image.source="https://github.com/vmnet8/nginx"
 
-
 #ENV NGINX_VERSION 1.16
 
 #RUN apk --no-cache add nginx \
