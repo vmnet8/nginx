@@ -32,6 +32,7 @@ before_deploy:
 - version4=$(image_version vmnet8/nginx-tags:rpi-$timetag)
 - echo "x86 nginx version is $version3"
 - echo "rpi nginx version is $version4"
+- docker push vmnet8/nginx-tags:x86-$timetag; docker push vmnet8/nginx-tags:rpi-$timetag
 - tag1="latest"
 - tag2=$timetag
 - echo $tag2
