@@ -35,7 +35,7 @@ before_deploy:
 - tag1="latest"
 - tag2=$timetag
 - echo $tag2
-- create_manifests vmnet8/nginx $tag1 $tag2 vmnet8/nginx-tags:x86-$timetag vmnet8/nginx-tags:rpi-$timetag 
+- create_manifest vmnet8/nginx $tag1 $tag2 vmnet8/nginx-tags:x86-$timetag vmnet8/nginx-tags:rpi-$timetag 
 - docker manifest inspect vmnet8/nginx:$tag1
 - docker manifest inspect vmnet8/nginx:$tag2
 deploy:
