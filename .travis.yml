@@ -42,7 +42,7 @@ before_deploy:
 deploy:
 - provider: script
  # script: docker push vmnet8/nginx-tags:x86-$timetag; docker push vmnet8/nginx-tags:rpi-$timetag
-  script: docker push vmnet8/nginx:$tag1; docker push vmnet8/nginx:$tag2
+  script: docker manifest push vmnet8/nginx:$tag1; docker manifest push vmnet8/nginx:$tag2
   skip_cleanup: true
   on:
     all_branches: true
