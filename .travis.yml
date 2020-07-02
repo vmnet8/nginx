@@ -24,6 +24,7 @@ script:
 - echo $timetag
 - echo "$DOCKERPASS" | docker login -u vmnet8 --password-stdin
 before_deploy:
+- docker run --rm --privileged multiarch/qemu-user-static:register --reset
 #- "./docker-build.sh vmnet8/nginx-tags:x86-$timetag vmnet8/nginx-tags:rpi-$timetag"
 - "./docker-build-x86.sh vmnet8/nginx-tags:x86-$timetag"
 - "./docker-build-rpi.sh vmnet8/nginx-tags:rpi-$timetag"
