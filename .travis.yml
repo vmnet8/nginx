@@ -24,7 +24,7 @@ script:
 - echo $timetag
 - echo "$DOCKERPASS" | docker login -u vmnet8 --password-stdin
 before_deploy:
-- docker run --rm --privileged multiarch/qemu-user-static:register --reset
+- docker run --rm --privileged multiarch/qemu-user-static:register --reset #important, with it multarch works!
 #- "./docker-build.sh vmnet8/nginx-tags:x86-$timetag vmnet8/nginx-tags:rpi-$timetag"
 - "./docker-build-x86.sh vmnet8/nginx-tags:x86-$timetag"
 - "./docker-build-rpi.sh vmnet8/nginx-tags:rpi-$timetag"
@@ -32,9 +32,16 @@ before_deploy:
 - version4=$(image_version vmnet8/nginx-tags:rpi-$timetag)
 - echo "x86 nginx version is $version3"
 - echo "rpi nginx version is $version4"
+- tag1="latest"
+- tag2=$timetag
+- echo $tag2
+- create_manifests vmnet8/nginx $tag1 $tag2 vmnet8/nginx-tags:x86-$timetag vmnet8/nginx-tags:rpi-$timetag 
+- docker manifest inspect vmnet8/nginx:$tag1
+- docker manifest inspect vmnet8/nginx:$tag2
 deploy:
 - provider: script
-  script: docker push vmnet8/nginx-tags:x86-$timetag; docker push vmnet8/nginx-tags:rpi-$timetag
+ # script: docker push vmnet8/nginx-tags:x86-$timetag; docker push vmnet8/nginx-tags:rpi-$timetag
+  script: docker push vmnet8/nginx:$tag1; docker push vmnet8/nginx:$tag2
   skip_cleanup: true
   on:
     all_branches: true

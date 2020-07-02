@@ -49,6 +49,22 @@ compare (){
     fi
 }
 
+create_manifest (){
+    local repo=$1
+    local tag1=$2
+    local tag2=$3
+    local x86=$4
+    local rpi=$5
+    local arm64=$6
+    docker manifest create $repo:$tag1 $x86 $rpi
+    docker manifest create $repo:$tag2 $x86 $rpi
+    docker manifest annotate $repo:$tag1 $x86 --arch amd64
+    docker manifest annotate $repo:$tag1 $rpi --arch arm
+    docker manifest annotate $repo:$tag2 $x86 --arch amd64
+    docker manifest annotate $repo:$tag2 $rpi --arch arm
+
+}
+
 #is_base "vmnet8/alpine:latest"  "vmnet8/nginx-tags:alpine-x86"
 #flag=$(is_base "vmnet8/alpine:latest"  "vmnet8/nginx-tags:alpine-x86")
 #echo $flag
