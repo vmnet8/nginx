@@ -24,10 +24,11 @@ script:
 #- echo $timetag
 - echo "$DOCKERPASS" | docker login -u vmnet8 --password-stdin
 before_deploy:
-- docker run --rm --privileged multiarch/qemu-user-static:register --reset #important, with it multarch works!
+#- docker run --rm --privileged multiarch/qemu-user-static:register --reset #important, with it multarch works!
+- docker run --rm --privileged multiarch/qemu-user-static --reset -p yes   # for arm64
 #- "./docker-build.sh vmnet8/nginx-tags:x86-$timetag vmnet8/nginx-tags:rpi-$timetag"
 - "./docker-build.sh vmnet8/alpine:latest arm"    #Dockerfile base image is arm arch
-#- "./docker-build.sh vmnet8/alpine:latest arm64"    #Dockerfile base image is arm64 arch
+- "./docker-build.sh vmnet8/alpine:latest arm64"    #Dockerfile base image is arm64 arch
 - "./docker-build.sh vmnet8/alpine:latest amd64"    #Dockerfile base image is amd64 arch
 #- version3=$(image_version vmnet8/nginx-tags:x86-$timetag)
 #- version4=$(image_version vmnet8/nginx-tags:rpi-$timetag)
