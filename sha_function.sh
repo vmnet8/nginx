@@ -60,10 +60,10 @@ create_manifest (){
     docker manifest create $repo:$tag2 $x86 $rpi $arm64
     docker manifest annotate $repo:$tag1 $x86 --arch amd64
     docker manifest annotate $repo:$tag1 $rpi --arch arm
-    docker manifest annotate $repo:$tag1 $rpi --arch arm64
+    docker manifest annotate $repo:$tag1 $arm64 --arch arm64
     docker manifest annotate $repo:$tag2 $x86 --arch amd64
     docker manifest annotate $repo:$tag2 $rpi --arch arm
-    docker manifest annotate $repo:$tag2 $rpi --arch arm64
+    docker manifest annotate $repo:$tag2 $arm64 --arch arm64
 
 }
 
