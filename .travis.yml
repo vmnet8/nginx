@@ -10,7 +10,8 @@ script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - source sha_function.sh
 #- flag=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx-tags:alpine-x86")
-- flag_alpine=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx-tags:202006180339")
+- flag_alpine=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx:latest")
+#- flag_alpine=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx-tags:202006180339")
 - echo $flag_alpine
 - version1=$(image_version nginx:latest)
 - echo "offical version is $version1"
@@ -18,6 +19,7 @@ script:
 - echo "my version is $version2"
 #- flag=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx-tags:alpine-x86")
 #- flag=$(compare "vmnet8/alpine:latest" "vmnet8/nginx-tags:alpine-x86" "nginx:latest" "vmnet8/nginx-tags:alpine-x86")
+#- flag=$(compare "vmnet8/alpine:latest" "vmnet8/nginx-tags:202006180339" "nginx:latest" "vmnet8/nginx-tags:202006180339")  # just compare vmnet8/nginx-tags
 - flag=$(compare "vmnet8/alpine:latest" "vmnet8/nginx-tags:202006180339" "nginx:latest" "vmnet8/nginx-tags:202006180339")
 - echo $flag
 #- timetag=$(date +%Y%m%d%H%M)
