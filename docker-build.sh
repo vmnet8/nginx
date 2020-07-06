@@ -14,15 +14,16 @@ fi
 
 dir=$(dirname $0)
 #sha=$($dir/alpine-sha.sh $@)  this function is get alpine:latest sha
-sha=$($dir/manifest-alpine-sha.sh $@)
+sha=$($dir/manifest-alpine-sha.sh $@)       # $1 vmnet8/alpine:latest  amd64|arm|arm64
 echo $sha
 base_image="vmnet8/alpine@$sha"
 echo $base_image
 arch=$2   # arm arm64 amd64
 
 if [ -n "$sha" ]; then
-        timetag=$(date +%Y%m%d%H%M)
-        tag=vmnet8/nginx-tags:$arch-$timetag
+#        timetag=$(date +%Y%m%d%H%M)
+       # tag=vmnet8/nginx-tags:$arch-$timetag
+        tag=vmnet8/nginx-tags:$arch
         #sed "s|{{base_image}}|$base_image|g" Dockerfile.template > /tmp/Dockerfile.$arch
         sed "s|{{base_image}}|$base_image|g" Dockerfile.template > Dockerfile.$arch
         #cat /tmp/Dockerfile.$arch

@@ -1,6 +1,6 @@
 get_manifest_sha (){
-    local repo=$1
-    local arch=$2
+    local repo=$1     #vmnet8/alpine:latest  
+    local arch=$2     # amd64 arm arm64
     docker pull -q $1 &>/dev/null
     docker manifest inspect $1 > "$2".txt
     sha=""

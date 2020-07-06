@@ -35,16 +35,18 @@ before_deploy:
 #- echo "x86 nginx version is $version3"
 #- echo "rpi nginx version is $version4"
 #- docker push vmnet8/nginx-tags:x86-$timetag; docker push vmnet8/nginx-tags:rpi-$timetag
+- timetag=$(date +%Y%m%d%H%M)
+- echo $timetag
 - tag1="latest"
 - tag2=$timetag
 - echo $tag2
-#- create_manifest vmnet8/nginx $tag1 $tag2 vmnet8/nginx-tags:x86-$timetag vmnet8/nginx-tags:rpi-$timetag
-#- docker manifest inspect vmnet8/nginx:$tag1
-#- docker manifest inspect vmnet8/nginx:$tag2
+- create_manifest vmnet8/nginx $tag1 $tag2 vmnet8/nginx-tags:amd64 vmnet8/nginx-tags:arm vmnet8/nginx-tags:arm64
+- docker manifest inspect vmnet8/nginx:$tag1
+- docker manifest inspect vmnet8/nginx:$tag2
 deploy:
 - provider: script
  # script: docker push vmnet8/nginx-tags:x86-$timetag; docker push vmnet8/nginx-tags:rpi-$timetag
-#  script: docker manifest push vmnet8/nginx:$tag1; docker manifest push vmnet8/nginx:$tag2
+  script: docker manifest push vmnet8/nginx:$tag1; docker manifest push vmnet8/nginx:$tag2
   skip_cleanup: true
   on:
     all_branches: true
