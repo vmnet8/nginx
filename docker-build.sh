@@ -1,11 +1,5 @@
 #!/bin/bash
 #set -x
-# params:
-#    docker_repo=$1  #alpine or vmnet/alpine
-#    manifest_tag=$2
-#    docker_image=$docker_repo:$manifest_tag
-#    arch=$3
-#    variant=$4
 
 if [ $# -le 1 ]; then
     echo "missing parameters."
@@ -13,7 +7,6 @@ if [ $# -le 1 ]; then
 fi
 
 dir=$(dirname $0)
-#sha=$($dir/alpine-sha.sh $@)  this function is get alpine:latest sha
 sha=$($dir/manifest-alpine-sha.sh $@)       # $1 vmnet8/alpine:latest  amd64|arm|arm64
 echo $sha
 base_image="vmnet8/alpine@$sha"
@@ -21,8 +14,6 @@ echo $base_image
 arch=$2   # arm arm64 amd64
 
 if [ -n "$sha" ]; then
-#        timetag=$(date +%Y%m%d%H%M)
-       # tag=vmnet8/nginx-tags:$arch-$timetag
         tag=vmnet8/nginx-tags:$arch
         #sed "s|{{base_image}}|$base_image|g" Dockerfile.template > /tmp/Dockerfile.$arch
         sed "s|{{base_image}}|$base_image|g" Dockerfile.template > Dockerfile.$arch

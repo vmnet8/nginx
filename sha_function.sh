@@ -67,13 +67,3 @@ create_manifest (){
 
 }
 
-#is_base "vmnet8/alpine:latest"  "vmnet8/nginx-tags:alpine-x86"
-#flag=$(is_base "vmnet8/alpine:latest"  "vmnet8/nginx-tags:alpine-x86")
-#echo $flag
-#is_base "treehouses/nginx:1.18" "treehouses/turtleblocksjs-tags:x86"
-#is_base "treehouses/alpine:3.11"  "treehouses/nginx:latest"
-#get_sha "treehouses/alpine:latest"
-#get_sha $1
-#is_base
-#image_version $1
-#compare $@
