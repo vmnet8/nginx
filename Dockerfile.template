@@ -1,4 +1,6 @@
-FROM vmnet8/alpine:latest
+# in order to specify which archtecture I will use to build the image, I need to get base image's sha first
+FROM {{base_image}}
+#FROM BASEIMAGE
 
 LABEL org.opencontainers.image.maintainer="vmnet8 <vmnet8@ole.org>" \
       org.opencontainers.image.title="NGINX" \
