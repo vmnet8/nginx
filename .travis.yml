@@ -9,45 +9,33 @@ services:
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - source sha_function.sh
-#- flag=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx-tags:alpine-x86")
-- flag_alpine=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx:latest")
-#- flag_alpine=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx-tags:202006180339")
+- flag_alpine=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx:latest") #compare nginx has newest alpine image
 - echo $flag_alpine
 - version1=$(image_version nginx:latest)
 - echo "offical nginx version is $version1"
 - version2=$(image_version vmnet8/nginx:latest)
 - echo "vmnet8/nginx version is $version2"
 - echo "$DOCKERPASS" | docker login -u vmnet8 --password-stdin
-- docker run --rm --privileged multiarch/qemu-user-static --reset -p yes   # for arm64
-#- "./docker-build.sh vmnet8/nginx-tags:x86-$timetag vmnet8/nginx-tags:rpi-$timetag"
+- docker run --rm --privileged multiarch/qemu-user-static --reset -p yes   # for arm64 to work
+#- docker run --rm --privileged multiarch/qemu-user-static:register --reset, important, with it multarch works!
+# build arm amd64 arm64 3 kinds of nginx image using newest alpine image
 - "./docker-build.sh vmnet8/alpine:latest arm"    #Dockerfile base image is arm arch
 - "./docker-build.sh vmnet8/alpine:latest arm64"    #Dockerfile base image is arm64 arch
 - "./docker-build.sh vmnet8/alpine:latest amd64"    #Dockerfile base image is amd64 arch
-#- flag=$(is_base "vmnet8/alpine:latest" "vmnet8/nginx-tags:alpine-x86")
-#- flag=$(compare "vmnet8/alpine:latest" "vmnet8/nginx-tags:alpine-x86" "nginx:latest" "vmnet8/nginx-tags:alpine-x86")
-#- flag=$(compare "vmnet8/alpine:latest" "vmnet8/nginx-tags:202006180339" "nginx:latest" "vmnet8/nginx-tags:202006180339")  # just compare vmnet8/nginx-tags
+# will compare new vmnet8/ngins-tags:$arch image's nginx version with vmnet8/nginx nginx version
 - flag=$(compare "vmnet8/alpine:latest" "vmnet8/nginx:latest" "vmnet8/nginx:latest" "vmnet8/nginx-tags:amd64")
 - echo $flag
-#- timetag=$(date +%Y%m%d%H%M)
-#- echo $timetag
 before_deploy:
-#- docker run --rm --privileged multiarch/qemu-user-static:register --reset #important, with it multarch works!
-#- version3=$(image_version vmnet8/nginx-tags:x86-$timetag)
-#- version4=$(image_version vmnet8/nginx-tags:rpi-$timetag)
-#- echo "x86 nginx version is $version3"
-#- echo "rpi nginx version is $version4"
-#- docker push vmnet8/nginx-tags:x86-$timetag; docker push vmnet8/nginx-tags:rpi-$timetag
 - timetag=$(date +%Y%m%d%H%M)
 - echo $timetag
 - tag1="latest"
 - tag2=$timetag
-- echo $tag2
+- echo "timetag is $tag2"
 - create_manifest vmnet8/nginx $tag1 $tag2 vmnet8/nginx-tags:amd64 vmnet8/nginx-tags:arm vmnet8/nginx-tags:arm64
 - docker manifest inspect vmnet8/nginx:$tag1
 - docker manifest inspect vmnet8/nginx:$tag2
 deploy:
 - provider: script
- # script: docker push vmnet8/nginx-tags:x86-$timetag; docker push vmnet8/nginx-tags:rpi-$timetag
   script: docker manifest push vmnet8/nginx:$tag1; docker manifest push vmnet8/nginx:$tag2
   skip_cleanup: true
   on:
