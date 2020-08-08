@@ -16,7 +16,6 @@ get_manifest_sha (){
         fi
         i=$i+1
     done < "$2".txt
-
 }
 
 get_sha(){
@@ -28,6 +27,7 @@ get_sha(){
     #read -a base_sha <<< $base_sha
     #sha_arr=($sha)
 }
+
 is_base (){
     local base_sha    # alpine
     local image_sha   # nginx
@@ -55,6 +55,7 @@ image_version(){
     version=$(docker run -it $1 /bin/sh -c "nginx -v" |awk '{print$3}')
     echo $version
 }
+
 compare (){
     result1=$(is_base $1 $2)
     result2=$(is_base $3 $4)
@@ -83,6 +84,7 @@ create_manifest (){
     docker manifest annotate $repo:$tag2 $x86 --arch amd64
     docker manifest annotate $repo:$tag2 $rpi --arch arm
     docker manifest annotate $repo:$tag2 $arm64 --arch arm64
-
 }
+#get_manifest_sha $@
+#get_sha $@
 
