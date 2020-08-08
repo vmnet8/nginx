@@ -1,5 +1,24 @@
 #!/bin/bash
 #set -x
+get_manifest_sha (){
+    local repo=$1
+    local arch=$2
+    docker pull -q $1 &>/dev/null
+    docker manifest inspect $1 > "$2".txt
+    sha=""
+    i=0
+    while [ "$sha" == "" ] && read -r line
+    do
+        archecture=$(jq .manifests[$i].platform.architecture "$2".txt |sed -e 's/^"//' -e 's/"$//')
+        if [ "$archecture" = "$2" ];then
+            sha=$(jq .manifests[$i].digest "$2".txt  |sed -e 's/^"//' -e 's/"$//')
+            echo ${sha}
+        fi
+        i=$i+1
+    done < "$2".txt
+
+}
+
 get_sha(){
     repo=$1
     docker pull $1 &>/dev/null
@@ -36,12 +55,12 @@ image_version(){
     version=$(docker run -it $1 /bin/sh -c "nginx -v" |awk '{print$3}')
     echo $version
 }
-
 compare (){
-    result=$(is_base $1 $2)
-    version1=$(image_version $3)
-    version2=$(image_version $4)
-    if [ $result == "true" ] || [ "$version1" != "$version2" ];
+    result1=$(is_base $1 $2)
+    result2=$(is_base $3 $4)
+    version1=$(image_version $5)
+    version2=$(image_version $6)
+    if [ $result1 == "true" ] || [ $result2 == "true" ] || [ "$version1" != "$version2" ];
     then
         echo "true"
     else
